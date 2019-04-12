@@ -4,14 +4,14 @@ header("Access-Control-Allow-Origin: *");
 session_start();
 include_once 'dbconnect.php';
 
-$IdLocation = $_GET["IdLocation"];
+$LocationId = $_GET["locationId"];
 
 $sql = "
 select Rou.id, Rou.color, Rou.name, Rou.type, Rou.rating, Rou.sublocation, Rou.dateFrom, Rou.dateUntil, Rou.pictureFileName, 
 	(select Max(Result) from Attempt where IdRoute = Rou.Id) result,
 	(select Max(Percentage) from Attempt where IdRoute = Rou.Id) percentage
 from Route Rou 
-where Rou.IdLocation = $IdLocation
+where Rou.IdLocation = $LocationId
 ";
 
 $result = $conn->query($sql);
