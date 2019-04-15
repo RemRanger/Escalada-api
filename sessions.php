@@ -8,7 +8,7 @@ $UserId = $_GET["userId"];
 
 
 $sql = "
-select Ses.Id id, SesToUsr.Comment comment, Ses.Date date, Loc.Name locationName, GROUP_CONCAT(DISTINCT Usr.FirstName ORDER BY Usr.FirstName SEPARATOR ', ') mates
+select Ses.Id id, SesToUsr.Comment comment, Ses.Date date, Loc.Id locationId, Loc.Name locationName, GROUP_CONCAT(DISTINCT Usr.FirstName ORDER BY Usr.FirstName SEPARATOR ', ') mates
 from Session Ses
 join SessionToUser SesToUsr on SesToUsr.IdSession = Ses.Id
 join Location Loc on Loc.Id = Ses.IdLocation
