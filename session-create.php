@@ -4,11 +4,8 @@ include_once 'dbconnect.php';
 
 $IdUser = $_SESSION["IdUser"];
 
-$IdLocation = mysqli_real_escape_string($conn, $_POST['IdLocation']);
-$Year = mysqli_real_escape_string($conn, $_POST['Year']);
-$Month = mysqli_real_escape_string($conn, $_POST['Month']);
-$Day = mysqli_real_escape_string($conn, $_POST['Day']);
-$Date = $Year . '-' . $Month . '-' . $Day;
+$IdLocation = mysqli_real_escape_string($conn, $_POST['locationId']);
+$Date = mysqli_real_escape_string($conn, $_POST['date']);
 $PartnerIds = $_POST['PartnerIds'];
 $Comment = mysqli_real_escape_string($conn, $_POST['comment']);
 
