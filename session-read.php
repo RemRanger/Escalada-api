@@ -15,11 +15,11 @@ select
 from Session Ses
 join SessionToUser SesToUsr on SesToUsr.IdSession = Ses.Id
 join Location Loc on Loc.Id = Ses.IdLocation
-left outer join SessionToUser SesToUsrWith on SesToUsrWith.IdSession = Ses.Id
+left outer join SessionToUser SesToUsrWith on SesToUsrWith.IdSession = Ses.Id and SesToUsrWith.IdUser <> $UserId
 left outer join User Usr on Usr.Id = SesToUsrWith.IdUser
-where SesToUsr.IdUser = $UserId and SesToUsrWith.IdUser <> $UserId
+where SesToUsr.IdUser = $UserId
 group by Ses.Id, SesToUsr.Comment, Ses.Date, Loc.Name
-order by Ses.Date desc
+order by Ses.Date desc, Ses.Id desc
 ";
 $result = $conn->query($sql);
 

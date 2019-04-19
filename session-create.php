@@ -23,20 +23,23 @@ if(!mysqli_query($conn, "INSERT INTO Session (IdLocation, Date) VALUES('$IdLocat
 $IdSession = $conn->insert_id;
 if ($success)
 {
+	echo '{"id":' . $conn->insert_id . '}';
+
 	if(!mysqli_query($conn, "INSERT INTO SessionToUser (IdSession, IdUser, Comment) VALUES('$IdSession', '$IdUser', '$Comment')"))
 	{
 		$success = False;
 	}
 }
 
-// if ($success && !empty($PartnerIds))
-// {
-	// foreach ($PartnerIds as $IdPartner)
-	// {
-		// if(!mysqli_query($conn, "INSERT INTO SessionToUser (IdSession, IdUser) VALUES('$IdSession', '$IdPartner')"))
-		// {
-			// $success = False;
-			// break;
-		// }
-	// }	
-// }
+if ($success && !empty($PartnerIds))
+{
+	foreach ($PartnerIds as $IdPartner)
+	{
+		if(!mysqli_query($conn, "INSERT INTO SessionToUser (IdSession, IdUser) VALUES('$IdSession', '$IdPartner')"))
+		{
+			$success = False;
+			break;
+		}
+	}	
+}
+
