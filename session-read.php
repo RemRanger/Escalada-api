@@ -8,7 +8,24 @@ $Id = $_GET["id"];
 $UserId = $_GET["userId"];
 
 $sql = "";
-if (isset($UserId))
+if (isset($UserId) && isset($Id))
+{
+	$sql = "
+	select 
+		Ses.Id id, SesToUsr.Comment comment, Ses.Date date, Loc.Id locationId, Loc.Name locationName, 
+		GROUP_CONCAT(Usr.Id SEPARATOR ',') partnerIdsAsString,
+		GROUP_CONCAT(DISTINCT CONCAT(Usr.FirstName, ' ', Usr.LastName) ORDER BY Usr.FirstName SEPARATOR ', ') partnerNames
+	from Session Ses
+	join SessionToUser SesToUsr on SesToUsr.IdSession = Ses.Id
+	join Location Loc on Loc.Id = Ses.IdLocation
+	left outer join SessionToUser SesToUsrWith on SesToUsrWith.IdSession = Ses.Id and SesToUsrWith.IdUser <> $UserId
+	left outer join User Usr on Usr.Id = SesToUsrWith.IdUser
+	where Ses.Id = $Id and SesToUsr.IdUser = $UserId
+	group by Ses.Id, SesToUsr.Comment, Ses.Date, Loc.Name
+	order by Ses.Date desc, Ses.Id desc
+	";
+}
+else if (isset($UserId))
 {
 	$sql = "
 	select 
