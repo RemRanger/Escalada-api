@@ -35,7 +35,7 @@ if ($success && !empty($PartnerIds))
 {
 	foreach ($PartnerIds as $IdPartner)
 	{
-		if(!mysqli_query($conn, "INSERT INTO SessionToUser (IdSession, IdUser) VALUES('$IdSession', '$IdPartner')"))
+		if($IdPartner != $IdUser && !mysqli_query($conn, "INSERT INTO SessionToUser (IdSession, IdUser) VALUES('$IdSession', '$IdPartner')"))
 		{
 			$success = False;
 			break;
