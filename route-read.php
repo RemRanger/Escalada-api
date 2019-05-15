@@ -12,6 +12,7 @@ select Rou.id, Rou.color, Rou.name, Rou.type, Rou.rating, Rou.sublocation, Rou.d
 	(select Max(Percentage) from Attempt where IdRoute = Rou.Id) percentage
 from Route Rou 
 where Rou.IdLocation = $LocationId
+order by Rou.dateFrom desc
 ";
 
 $result = $conn->query($sql);
