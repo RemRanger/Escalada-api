@@ -10,6 +10,8 @@ include_once 'dbconnect.php';
 $Id = mysqli_real_escape_string($conn, $_POST['id']);
 
 $success = True;
+if(!mysqli_query($conn, "DELETE FROM Attempt WHERE IdSession = '$Id'"))
+	$success = False;
 if(!mysqli_query($conn, "DELETE FROM SessionToUser WHERE IdSession = '$Id'"))
 	$success = False;
 if(!mysqli_query($conn, "DELETE FROM Session WHERE Id = '$Id'"))
